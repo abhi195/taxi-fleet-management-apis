@@ -29,17 +29,17 @@ public class TaxiFleetManagementApplication extends WebMvcConfigurerAdapter {
     @Bean
     public Docket docket() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.basePackage(getClass().getPackage().getName()))
-                .paths(PathSelectors.any())
-                .build()
-                .apiInfo(generateApiInfo());
+            .select()
+            .apis(RequestHandlerSelectors.basePackage(getClass().getPackage().getName()))
+            .paths(PathSelectors.any())
+            .build()
+            .apiInfo(generateApiInfo());
     }
 
     private ApiInfo generateApiInfo() {
         return new ApiInfo("Taxi fleet management service",
-                "This service exposes REST APIs to manage driver and car fleet for a ride hailing service.",
-                "v1.0",
-                "urn:tos", "TripTaxi", "Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0");
+            "This service exposes REST APIs to manage driver and car fleet for a ride hailing service.",
+            "v1.0",
+            "urn:tos", "TripTaxi", "Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0");
     }
 }

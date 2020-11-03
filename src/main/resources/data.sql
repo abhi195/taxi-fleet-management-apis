@@ -37,3 +37,29 @@ values
  (8,
  'aced0005737200226f72672e737072696e676672616d65776f726b2e646174612e67656f2e506f696e7431b9e90ef11a4006020002440001784400017978704023000000000000404bfa1cac083127', now(), now(), false, 'ONLINE',
 'pwd08', 'driver08');
+
+-- Create 3 manufacturers
+
+insert into manufacturer (id, date_created, manufacturer_name, date_manufacturer_updated, deleted) values (1, now(),
+'Mercedes-Benz', now(), false);
+
+insert into manufacturer (id, date_created, manufacturer_name, date_manufacturer_updated, deleted) values (2, now(),
+'Volkswagen', now(), false);
+
+insert into manufacturer (id, date_created, manufacturer_name, date_manufacturer_updated, deleted) values (3, now(),
+'BMW', now(), false);
+
+
+-- Create 3 cars
+
+insert into car (id, date_created, license_plate, seat_count, convertible, rating, engine_type, manufacturer_id,
+date_car_updated, deleted)
+values (1, now(), '1A-2B3C', 5, false, 2.2, 'GAS', 1, now(), false);
+
+insert into car (id, date_created, license_plate, seat_count, convertible, rating, engine_type, manufacturer_id,
+date_car_updated, deleted)
+values (2, now(), '1X-2Y3Z', 7, false, 3.5, 'ELECTRIC', 2, now(), false);
+
+insert into car (id, date_created, license_plate, seat_count, convertible, rating, engine_type, manufacturer_id,
+date_car_updated, deleted)
+values (3, now(), '1L-2M3N', 2, true, 4.8, 'GAS', 3, now(), false);

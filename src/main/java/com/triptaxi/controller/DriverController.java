@@ -3,7 +3,7 @@ package com.triptaxi.controller;
 import com.triptaxi.controller.mapper.DriverMapper;
 import com.triptaxi.datatransferobject.DriverDTO;
 import com.triptaxi.domainobject.DriverDO;
-import com.triptaxi.domainobject.OnlineStatus;
+import com.triptaxi.domainvalue.OnlineStatus;
 import com.triptaxi.exception.ConstraintsViolationException;
 import com.triptaxi.exception.EntityNotFoundException;
 import com.triptaxi.service.driver.DriverService;
@@ -31,42 +31,35 @@ public class DriverController {
 
     private final DriverService driverService;
 
-
     @Autowired
     public DriverController(final DriverService driverService) {
         this.driverService = driverService;
     }
-
 
     @GetMapping("/{driverId}")
     public DriverDTO getDriver(@PathVariable long driverId) throws EntityNotFoundException {
         return DriverMapper.makeDriverDTO(driverService.find(driverId));
     }
 
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public DriverDTO createDriver(@Valid @RequestBody DriverDTO driverDTO)
-            throws ConstraintsViolationException {
+        throws ConstraintsViolationException {
         DriverDO driverDO = DriverMapper.makeDriverDO(driverDTO);
         return DriverMapper.makeDriverDTO(driverService.create(driverDO));
     }
-
 
     @DeleteMapping("/{driverId}")
     public void deleteDriver(@PathVariable long driverId) throws EntityNotFoundException {
         driverService.delete(driverId);
     }
 
-
     @PutMapping("/{driverId}")
-    public void updateLocation(
-            @PathVariable long driverId, @RequestParam double longitude,
-            @RequestParam double latitude)
-            throws EntityNotFoundException {
+    public void updateLocation(@PathVariable long driverId, @RequestParam double longitude,
+        @RequestParam double latitude)
+        throws EntityNotFoundException, ConstraintsViolationException {
         driverService.updateLocation(driverId, longitude, latitude);
     }
-
 
     @GetMapping
     public List<DriverDTO> findDrivers(@RequestParam OnlineStatus onlineStatus) {

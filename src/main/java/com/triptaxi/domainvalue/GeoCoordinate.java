@@ -17,11 +17,9 @@ public class GeoCoordinate {
     @Column(name = "coordinate")
     private final Point point;
 
-
     protected GeoCoordinate() {
         this.point = null;
     }
-
 
     /**
      * @param latitude  - y coordinate
@@ -29,36 +27,32 @@ public class GeoCoordinate {
      */
     public GeoCoordinate(final double latitude, final double longitude) {
         Preconditions
-                .checkArgument(latitude >= MIN_LATITUDE,
-                        "latitude is lower than min_latitude: " + MIN_LATITUDE);
+            .checkArgument(latitude >= MIN_LATITUDE,
+                "latitude is lower than min_latitude: " + MIN_LATITUDE);
         Preconditions.checkArgument(latitude <= MAX_LATITUDE,
-                "latitude is higher than max_latitude: " + MAX_LATITUDE);
+            "latitude is higher than max_latitude: " + MAX_LATITUDE);
         Preconditions.checkArgument(longitude >= MIN_LONGITUDE,
-                "longitude is lower than min_longitude: " + MIN_LONGITUDE);
+            "longitude is lower than min_longitude: " + MIN_LONGITUDE);
         Preconditions.checkArgument(longitude <= MAX_LONGITUDE,
-                "longitude is higher than max_longitude: " + MAX_LONGITUDE);
+            "longitude is higher than max_longitude: " + MAX_LONGITUDE);
 
         this.point = new Point(longitude, latitude);
     }
-
 
     @JsonProperty
     public double getLatitude() {
         return this.point.getY();
     }
 
-
     @JsonIgnore
     public Point getPoint() {
         return this.point;
     }
 
-
     @JsonProperty
     public double getLongitude() {
         return this.point.getX();
     }
-
 
     @Override
     public int hashCode() {
@@ -67,7 +61,6 @@ public class GeoCoordinate {
         result = prime * result + ((this.point == null) ? 0 : this.point.hashCode());
         return result;
     }
-
 
     @Override
     public boolean equals(final Object obj) {
@@ -91,10 +84,8 @@ public class GeoCoordinate {
         return true;
     }
 
-
     @Override
     public String toString() {
         return this.point.toString();
     }
-
 }

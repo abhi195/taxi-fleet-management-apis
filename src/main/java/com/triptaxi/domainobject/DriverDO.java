@@ -1,6 +1,7 @@
 package com.triptaxi.domainobject;
 
 import com.triptaxi.domainvalue.GeoCoordinate;
+import com.triptaxi.domainvalue.OnlineStatus;
 import java.time.ZonedDateTime;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -17,8 +18,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(
-        name = "driver",
-        uniqueConstraints = @UniqueConstraint(name = "uc_username", columnNames = {"username"})
+    name = "driver",
+    uniqueConstraints = @UniqueConstraint(name = "uc_username", columnNames = {"username"})
 )
 public class DriverDO {
 
@@ -52,10 +53,8 @@ public class DriverDO {
     @Column(nullable = false)
     private OnlineStatus onlineStatus;
 
-
     private DriverDO() {
     }
-
 
     public DriverDO(String username, String password) {
         this.username = username;
@@ -66,51 +65,41 @@ public class DriverDO {
         this.onlineStatus = OnlineStatus.OFFLINE;
     }
 
-
     public Long getId() {
         return id;
     }
-
 
     public void setId(Long id) {
         this.id = id;
     }
 
-
     public String getUsername() {
         return username;
     }
-
 
     public String getPassword() {
         return password;
     }
 
-
     public Boolean getDeleted() {
         return deleted;
     }
-
 
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
     }
 
-
     public OnlineStatus getOnlineStatus() {
         return onlineStatus;
     }
-
 
     public void setOnlineStatus(OnlineStatus onlineStatus) {
         this.onlineStatus = onlineStatus;
     }
 
-
     public GeoCoordinate getCoordinate() {
         return coordinate;
     }
-
 
     public void setCoordinate(GeoCoordinate coordinate) {
         this.coordinate = coordinate;

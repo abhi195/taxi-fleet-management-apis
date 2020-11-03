@@ -1,4 +1,4 @@
-package com.triptaxi.domainobject;
+package com.triptaxi.domainvalue;
 
 public enum OnlineStatus {
     ONLINE, OFFLINE

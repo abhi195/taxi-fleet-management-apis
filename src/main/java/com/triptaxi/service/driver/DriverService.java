@@ -1,7 +1,7 @@
 package com.triptaxi.service.driver;
 
 import com.triptaxi.domainobject.DriverDO;
-import com.triptaxi.domainobject.OnlineStatus;
+import com.triptaxi.domainvalue.OnlineStatus;
 import com.triptaxi.exception.ConstraintsViolationException;
 import com.triptaxi.exception.EntityNotFoundException;
 import java.util.List;
@@ -15,7 +15,7 @@ public interface DriverService {
     void delete(Long driverId) throws EntityNotFoundException;
 
     void updateLocation(long driverId, double longitude, double latitude)
-            throws EntityNotFoundException;
+        throws EntityNotFoundException, ConstraintsViolationException;
 
     List<DriverDO> find(OnlineStatus onlineStatus);
 }

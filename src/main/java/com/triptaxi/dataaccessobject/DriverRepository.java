@@ -1,7 +1,7 @@
 package com.triptaxi.dataaccessobject;
 
 import com.triptaxi.domainobject.DriverDO;
-import com.triptaxi.domainobject.OnlineStatus;
+import com.triptaxi.domainvalue.OnlineStatus;
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
