@@ -1,11 +1,14 @@
 package com.triptaxi.service.driver;
 
 import com.triptaxi.dataaccessobject.DriverRepository;
+import com.triptaxi.domainobject.CarDO;
 import com.triptaxi.domainobject.DriverDO;
 import com.triptaxi.domainvalue.GeoCoordinate;
 import com.triptaxi.domainvalue.OnlineStatus;
+import com.triptaxi.exception.CarAlreadyInUseException;
 import com.triptaxi.exception.ConstraintsViolationException;
 import com.triptaxi.exception.EntityNotFoundException;
+import com.triptaxi.service.car.CarService;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,9 +26,12 @@ public class DefaultDriverService implements DriverService {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultDriverService.class);
 
     private final DriverRepository driverRepository;
+    private final CarService carService;
 
-    public DefaultDriverService(final DriverRepository driverRepository) {
+    public DefaultDriverService(final DriverRepository driverRepository,
+        final CarService carService) {
         this.driverRepository = driverRepository;
+        this.carService = carService;
     }
 
     /**
@@ -103,6 +109,50 @@ public class DefaultDriverService implements DriverService {
     @Override
     public List<DriverDO> find(OnlineStatus onlineStatus) {
         return driverRepository.findByOnlineStatus(onlineStatus);
+    }
+
+    /**
+     * Assign selected car to the driver.
+     *
+     * @param driverId
+     * @param carId
+     * @throws EntityNotFoundException       if no driver or car with the given id was found
+     * @throws CarAlreadyInUseException      if selected car is already assigned to another driver
+     * @throws ConstraintsViolationException if driver was OFFLINE or selected car was deleted
+     */
+    @Override
+    public void selectCar(Long driverId, Long carId)
+        throws EntityNotFoundException, CarAlreadyInUseException, ConstraintsViolationException {
+        try {
+            DriverDO driver = findDriverChecked(driverId);
+            CarDO car = carService.find(carId);
+            if (driver.getOnlineStatus() != OnlineStatus.ONLINE || car.getDeleted()) {
+                String message =
+                    "ConstraintsViolationException due to OFFLINE driverID: " + driverId
+                        + " or deleted carId: " + carId;
+                LOG.warn(message);
+                throw new ConstraintsViolationException(message);
+            }
+            driver.setCar(car);
+            driverRepository.save(driver);
+        } catch (DataIntegrityViolationException e) {
+            LOG.warn("CarAlreadyInUseException while selecting already assigned carId: {}", carId,
+                e);
+            throw new CarAlreadyInUseException(e.getMessage());
+        }
+    }
+
+    /**
+     * Retract car from the driver.
+     *
+     * @param driverId
+     * @throws EntityNotFoundException if no driver with the given id was found
+     */
+    @Override
+    @Transactional
+    public void deselectCar(Long driverId) throws EntityNotFoundException {
+        DriverDO driver = findDriverChecked(driverId);
+        driver.setCar(null);
     }
 
     private DriverDO findDriverChecked(Long driverId) throws EntityNotFoundException {

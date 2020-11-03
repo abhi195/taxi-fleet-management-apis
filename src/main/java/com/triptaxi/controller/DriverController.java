@@ -4,6 +4,7 @@ import com.triptaxi.controller.mapper.DriverMapper;
 import com.triptaxi.datatransferobject.DriverDTO;
 import com.triptaxi.domainobject.DriverDO;
 import com.triptaxi.domainvalue.OnlineStatus;
+import com.triptaxi.exception.CarAlreadyInUseException;
 import com.triptaxi.exception.ConstraintsViolationException;
 import com.triptaxi.exception.EntityNotFoundException;
 import com.triptaxi.service.driver.DriverService;
@@ -64,5 +65,16 @@ public class DriverController {
     @GetMapping
     public List<DriverDTO> findDrivers(@RequestParam OnlineStatus onlineStatus) {
         return DriverMapper.makeDriverDTOList(driverService.find(onlineStatus));
+    }
+
+    @PutMapping("/{driverId}/selectCar")
+    public void selectCar(@PathVariable long driverId, @RequestParam Long carId)
+        throws EntityNotFoundException, CarAlreadyInUseException, ConstraintsViolationException {
+        driverService.selectCar(driverId, carId);
+    }
+
+    @PutMapping("/{driverId}/deselectCar")
+    public void deselectCar(@PathVariable long driverId) throws EntityNotFoundException {
+        driverService.deselectCar(driverId);
     }
 }

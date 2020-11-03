@@ -1,5 +1,6 @@
 package com.triptaxi.domainobject;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.triptaxi.domainvalue.GeoCoordinate;
 import com.triptaxi.domainvalue.OnlineStatus;
 import java.time.ZonedDateTime;
@@ -11,9 +12,15 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -21,15 +28,18 @@ import org.springframework.format.annotation.DateTimeFormat;
     name = "driver",
     uniqueConstraints = @UniqueConstraint(name = "uc_username", columnNames = {"username"})
 )
+@Getter
+@ToString
 public class DriverDO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @CreationTimestamp
     @Column(nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private ZonedDateTime dateCreated = ZonedDateTime.now();
+    private ZonedDateTime dateCreated;
 
     @Column(nullable = false)
     @NotNull(message = "Username can not be null!")
@@ -39,6 +49,7 @@ public class DriverDO {
     @NotNull(message = "Password can not be null!")
     private String password;
 
+    @Setter
     @Column(nullable = false)
     private Boolean deleted = false;
 
@@ -47,11 +58,19 @@ public class DriverDO {
 
     @Column
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private ZonedDateTime dateCoordinateUpdated = ZonedDateTime.now();
+    private ZonedDateTime dateCoordinateUpdated;
 
-    @Enumerated(EnumType.STRING)
+    @Setter
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private OnlineStatus onlineStatus;
+
+    @Setter
+    @OneToOne
+    @ToString.Exclude
+    @JsonManagedReference
+    @JoinColumn(name = "car_id", unique = true)
+    private CarDO car;
 
     private DriverDO() {
     }
@@ -63,42 +82,6 @@ public class DriverDO {
         this.coordinate = null;
         this.dateCoordinateUpdated = null;
         this.onlineStatus = OnlineStatus.OFFLINE;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public Boolean getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
-    }
-
-    public OnlineStatus getOnlineStatus() {
-        return onlineStatus;
-    }
-
-    public void setOnlineStatus(OnlineStatus onlineStatus) {
-        this.onlineStatus = onlineStatus;
-    }
-
-    public GeoCoordinate getCoordinate() {
-        return coordinate;
     }
 
     public void setCoordinate(GeoCoordinate coordinate) {
