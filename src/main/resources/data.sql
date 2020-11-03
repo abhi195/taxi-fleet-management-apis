@@ -62,11 +62,11 @@ values (2, now(), '1X-2Y3Z', 7, false, 3.5, 'ELECTRIC', 2, now(), false);
 
 insert into car (id, date_created, license_plate, seat_count, convertible, rating, engine_type, manufacturer_id,
 date_car_updated, deleted)
-values (3, now(), '1L-2M3N', 2, true, 4.8, 'GAS', 3, now(), false);
+values (3, now(), '1L-2M3N', 2, true, 4.8, 'ELECTRIC', 3, now(), false);
 
 insert into car (id, date_created, license_plate, seat_count, convertible, rating, engine_type, manufacturer_id,
 date_car_updated, deleted)
-values (4, now(), '1D-2E3F', 5, false, 1.8, 'ELECTRIC', 2, now(), true);
+values (4, now(), '1D-2E3F', 5, false, 1.8, 'GAS', 2, now(), true);
 
 insert into car (id, date_created, license_plate, seat_count, convertible, rating, engine_type, manufacturer_id,
 date_car_updated, deleted)
@@ -75,7 +75,7 @@ values (5, now(), '1I-2J3K', 4, true, 4.8, 'ELECTRIC', 1, now(), false);
 -- Create 2 ONLINE drivers with car assigned
 
 insert into driver (id, date_created, deleted, online_status, password, username, car_id)
-values (9, now(), false, 'ONLINE', 'driver09pw', 'driver09', 1);
+values (9, now(), false, 'ONLINE', 'pwd09', 'driver09', 1);
 
 insert into driver (id, date_created, deleted, online_status, password, username, car_id)
-values (10, now(), false, 'ONLINE', 'driver10pw', 'driver10', 5);
+values (10, now(), false, 'ONLINE', 'pwd10', 'driver10', 3);

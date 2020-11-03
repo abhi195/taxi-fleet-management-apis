@@ -6,6 +6,8 @@ import com.triptaxi.exception.CarAlreadyInUseException;
 import com.triptaxi.exception.ConstraintsViolationException;
 import com.triptaxi.exception.EntityNotFoundException;
 import java.util.List;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 
 public interface DriverService {
 
@@ -24,4 +26,6 @@ public interface DriverService {
         throws EntityNotFoundException, CarAlreadyInUseException, ConstraintsViolationException;
 
     void deselectCar(Long driverId) throws EntityNotFoundException;
+
+    List<DriverDO> search(Specification<DriverDO> spec, Sort sort);
 }

@@ -13,6 +13,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -153,6 +155,11 @@ public class DefaultDriverService implements DriverService {
     public void deselectCar(Long driverId) throws EntityNotFoundException {
         DriverDO driver = findDriverChecked(driverId);
         driver.setCar(null);
+    }
+
+    @Override
+    public List<DriverDO> search(Specification<DriverDO> spec, Sort sort) {
+        return driverRepository.findAll(spec, sort);
     }
 
     private DriverDO findDriverChecked(Long driverId) throws EntityNotFoundException {

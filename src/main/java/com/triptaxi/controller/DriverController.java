@@ -10,7 +10,16 @@ import com.triptaxi.exception.EntityNotFoundException;
 import com.triptaxi.service.driver.DriverService;
 import java.util.List;
 import javax.validation.Valid;
+import net.kaczmarzyk.spring.data.jpa.domain.EqualIgnoreCase;
+import net.kaczmarzyk.spring.data.jpa.domain.GreaterThanOrEqual;
+import net.kaczmarzyk.spring.data.jpa.domain.LessThanOrEqual;
+import net.kaczmarzyk.spring.data.jpa.domain.LikeIgnoreCase;
+import net.kaczmarzyk.spring.data.jpa.domain.NotNull;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -76,5 +85,23 @@ public class DriverController {
     @PutMapping("/{driverId}/deselectCar")
     public void deselectCar(@PathVariable long driverId) throws EntityNotFoundException {
         driverService.deselectCar(driverId);
+    }
+
+    @GetMapping(value = "/search")
+    public List<DriverDTO> search(
+        @And({
+            @Spec(path = "username", params = "username", spec = LikeIgnoreCase.class),
+            @Spec(path = "onlineStatus", params = "onlineStatus", spec = EqualIgnoreCase.class),
+            @Spec(path = "deleted", params = "deleted", spec = EqualIgnoreCase.class),
+            @Spec(path = "car", params = "carAssigned", spec = NotNull.class),
+            @Spec(path = "car.licensePlate", params = "licensePlate", spec = LikeIgnoreCase.class),
+            @Spec(path = "car.rating", params = "ratingAvailable", spec = NotNull.class),
+            @Spec(path = "car.rating", params = "ratingGreaterThan", spec = GreaterThanOrEqual.class),
+            @Spec(path = "car.rating", params = "ratingLessThan", spec = LessThanOrEqual.class),
+            @Spec(path = "car.convertible", params = "convertible", spec = EqualIgnoreCase.class),
+            @Spec(path = "car.manufacturer.manufacturerName", params = "manufacturer", spec = LikeIgnoreCase.class),
+            @Spec(path = "car.engineType", params = "engineType", spec = EqualIgnoreCase.class)
+        }) Specification<DriverDO> spec, Sort sort) {
+        return DriverMapper.makeDriverDTOList(driverService.search(spec, sort));
     }
 }
