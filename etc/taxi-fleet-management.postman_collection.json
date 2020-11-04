@@ -1,0 +1,519 @@
+{
+	"info": {
+		"_postman_id": "5c1b9bf6-ba2f-4b37-ad80-5ad507413f1f",
+		"name": "taxi-fleet-management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "search_scenario_1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/drivers/search?onlineStatus=online",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"drivers",
+						"search"
+					],
+					"query": [
+						{
+							"key": "onlineStatus",
+							"value": "online"
+						}
+					]
+				},
+				"description": "All online drivers"
+			},
+			"response": []
+		},
+		{
+			"name": "search_scenario_2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/drivers/search?username=04",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"drivers",
+						"search"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "04"
+						}
+					]
+				},
+				"description": "All drivers whose username contains '04'.\nSo basically search on username like 'chars' feature."
+			},
+			"response": []
+		},
+		{
+			"name": "search_scenario_3",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/drivers/search?onlineStatus=online&carAssigned=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"drivers",
+						"search"
+					],
+					"query": [
+						{
+							"key": "onlineStatus",
+							"value": "online"
+						},
+						{
+							"key": "carAssigned",
+							"value": "true"
+						}
+					]
+				},
+				"description": "All drivers who are online and have car assigned to them."
+			},
+			"response": []
+		},
+		{
+			"name": "search_scenario_4",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/drivers/search?onlineStatus=online&carAssigned=true&ratingGreaterThan=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"drivers",
+						"search"
+					],
+					"query": [
+						{
+							"key": "onlineStatus",
+							"value": "online"
+						},
+						{
+							"key": "carAssigned",
+							"value": "true"
+						},
+						{
+							"key": "ratingGreaterThan",
+							"value": "3"
+						}
+					]
+				},
+				"description": "All drivers who are online and have car assigned to them with car ratings greater than 3."
+			},
+			"response": []
+		},
+		{
+			"name": "search_scenario_5",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/drivers/search?onlineStatus=online&carAssigned=true&manufacturer=bmw",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"drivers",
+						"search"
+					],
+					"query": [
+						{
+							"key": "onlineStatus",
+							"value": "online"
+						},
+						{
+							"key": "carAssigned",
+							"value": "true"
+						},
+						{
+							"key": "manufacturer",
+							"value": "bmw"
+						}
+					]
+				},
+				"description": "All drivers who are online and have car assigned to them with manufacturer like 'bmw'. "
+			},
+			"response": []
+		},
+		{
+			"name": "search_scenario_6",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/drivers/search?onlineStatus=online&carAssigned=true&engineType=gas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"drivers",
+						"search"
+					],
+					"query": [
+						{
+							"key": "onlineStatus",
+							"value": "online"
+						},
+						{
+							"key": "carAssigned",
+							"value": "true"
+						},
+						{
+							"key": "engineType",
+							"value": "gas"
+						}
+					]
+				},
+				"description": "All drivers who are online and have car with gas assigned to them. "
+			},
+			"response": []
+		},
+		{
+			"name": "offline_driver_selecting_a_car",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/drivers/1/selectCar?carId=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"drivers",
+						"1",
+						"selectCar"
+					],
+					"query": [
+						{
+							"key": "carId",
+							"value": "2"
+						}
+					]
+				},
+				"description": "As only online drivers are allowed to select a car, this should fail with 400."
+			},
+			"response": []
+		},
+		{
+			"name": "online_driver_selecting_a_car_which_is_already_assigned",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/drivers/5/selectCar?carId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"drivers",
+						"5",
+						"selectCar"
+					],
+					"query": [
+						{
+							"key": "carId",
+							"value": "1"
+						}
+					]
+				},
+				"description": "As there is one-to-one mapping between a driver and a car, this driver should not be able to select already assigned car. Request should fails with 409."
+			},
+			"response": []
+		},
+		{
+			"name": "driver_deselecting_a_car",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/drivers/9/deselectCar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"drivers",
+						"9",
+						"deselectCar"
+					]
+				},
+				"description": "After driver deselects a car, it should be available to be selected by another online driver."
+			},
+			"response": []
+		},
+		{
+			"name": "online_driver_selecting_deleted_car",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/drivers/5/selectCar?carId=4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"drivers",
+						"5",
+						"selectCar"
+					],
+					"query": [
+						{
+							"key": "carId",
+							"value": "4"
+						}
+					]
+				},
+				"description": "Driver are not alowed to select a deleted car, this request shoud return 400."
+			},
+			"response": []
+		},
+		{
+			"name": "create_car",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"convertible\": false,\n  \"engineType\": \"ELECTRIC\",\n  \"licensePlate\": \"1R-2S3T\",\n  \"manufacturerId\": 2,\n  \"rating\": 3.8,\n  \"seatCount\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/cars",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"cars"
+					]
+				},
+				"description": "Creating new car, with existing manufacturer."
+			},
+			"response": []
+		},
+		{
+			"name": "update_car_rating",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/cars/1?rating=2.5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"cars",
+						"1"
+					],
+					"query": [
+						{
+							"key": "rating",
+							"value": "2.5"
+						}
+					]
+				},
+				"description": "Update car rating with valid value between [0.0, 5.0]"
+			},
+			"response": []
+		},
+		{
+			"name": "update_car_rating_with_invalid_value",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/cars/2?rating=7.2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"cars",
+						"2"
+					],
+					"query": [
+						{
+							"key": "rating",
+							"value": "7.2"
+						}
+					]
+				},
+				"description": "Allowed rating value is in [0.0, 5.0].\nThis request should fail with 400."
+			},
+			"response": []
+		},
+		{
+			"name": "create_car_with_existing_license_plate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"convertible\": false,\n  \"engineType\": \"ELECTRIC\",\n  \"licensePlate\": \"1A-2B3C\",\n  \"manufacturerId\": 2,\n  \"rating\": 3.8,\n  \"seatCount\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/cars",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"cars"
+					]
+				},
+				"description": "As license plate are unique per car, this request should fail."
+			},
+			"response": []
+		},
+		{
+			"name": "create_manufacturer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"manufacturerName\": \"Tesla\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/manufacturers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"manufacturers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create_manufacturer_with_existing_name",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"manufacturerName\": \"BMW\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/manufacturers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"manufacturers"
+					]
+				},
+				"description": "As manufacturer name is unique this request should fail."
+			},
+			"response": []
+		},
+		{
+			"name": "online_driver_selecting_a_car",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/drivers/5/selectCar?carId=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"drivers",
+						"5",
+						"selectCar"
+					],
+					"query": [
+						{
+							"key": "carId",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
