@@ -35,7 +35,7 @@ public class ManufacturerController {
         this.manufacturerService = manufacturerService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<ManufacturerDTO> getManufacturers() {
         return ManufacturerMapper.makeDriverDTOList(manufacturerService.findAll());
     }

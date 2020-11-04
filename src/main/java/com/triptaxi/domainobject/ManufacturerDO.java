@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -28,6 +29,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 )
 @Getter
 @ToString
+@EqualsAndHashCode
 public class ManufacturerDO {
 
     @Id
@@ -37,7 +39,7 @@ public class ManufacturerDO {
     @CreationTimestamp
     @Column(nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private ZonedDateTime dateCreated = ZonedDateTime.now();
+    private ZonedDateTime dateCreated;
 
     @Setter
     @Column(nullable = false)

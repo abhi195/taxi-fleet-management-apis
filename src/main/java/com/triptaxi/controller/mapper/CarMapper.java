@@ -38,8 +38,8 @@ public class CarMapper {
         return carDTOBuilder.build();
     }
 
-    public static List<CarDTO> makeCarDTOList(Collection<CarDO> manufacturers) {
-        return manufacturers.stream()
+    public static List<CarDTO> makeCarDTOList(Collection<CarDO> cars) {
+        return cars.stream()
             .map(CarMapper::makeCarDTO)
             .collect(Collectors.toList());
     }

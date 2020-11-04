@@ -17,6 +17,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -30,6 +31,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 )
 @Getter
 @ToString
+@EqualsAndHashCode
 public class DriverDO {
 
     @Id

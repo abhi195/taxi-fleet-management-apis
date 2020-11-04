@@ -36,7 +36,7 @@ public class CarController {
         this.carService = carService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<CarDTO> getCars() {
         return CarMapper.makeCarDTOList(carService.findAll());
     }

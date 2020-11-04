@@ -22,6 +22,7 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -36,6 +37,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 )
 @Getter
 @ToString
+@EqualsAndHashCode
 public class CarDO {
 
     @Id
@@ -88,7 +90,7 @@ public class CarDO {
     @UpdateTimestamp
     @Column(nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private ZonedDateTime dateCarUpdated = ZonedDateTime.now();
+    private ZonedDateTime dateCarUpdated;
 
     @Setter
     @Column(nullable = false)
