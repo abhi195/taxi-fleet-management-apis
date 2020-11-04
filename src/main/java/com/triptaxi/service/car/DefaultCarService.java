@@ -36,9 +36,9 @@ public class DefaultCarService implements CarService {
     }
 
     /**
-     * Find all cars.
+     * Find all cars except deleted.
      *
-     * @return all cars
+     * @return all un-deleted cars
      */
     @Override
     public List<CarDO> findAll() {
