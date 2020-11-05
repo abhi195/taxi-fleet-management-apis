@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.triptaxi.domainvalue.EngineType;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -24,6 +26,8 @@ public class CarDTO {
     @NotNull(message = "licensePlate can not be null!")
     private String licensePlate;
 
+    @Min(value = 2, message = "seatCount should be >= 2")
+    @Max(value = 7, message = "seatCount should be <= 7")
     @NotNull(message = "seatCount can not be null!")
     private Integer seatCount;
 

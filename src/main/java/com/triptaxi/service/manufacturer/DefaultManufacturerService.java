@@ -1,6 +1,5 @@
 package com.triptaxi.service.manufacturer;
 
-import com.google.common.collect.ImmutableList;
 import com.triptaxi.dataaccessobject.ManufacturerRepository;
 import com.triptaxi.domainobject.ManufacturerDO;
 import com.triptaxi.exception.ConstraintsViolationException;
@@ -34,7 +33,7 @@ public class DefaultManufacturerService implements ManufacturerService {
      */
     @Override
     public List<ManufacturerDO> findAll() {
-        return ImmutableList.copyOf(manufacturerRepository.findByDeletedFalse());
+        return manufacturerRepository.findByDeletedFalse();
     }
 
     /**

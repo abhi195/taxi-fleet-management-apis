@@ -1,7 +1,6 @@
 package com.triptaxi.service.car;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableList;
 import com.triptaxi.dataaccessobject.CarRepository;
 import com.triptaxi.domainobject.CarDO;
 import com.triptaxi.domainobject.ManufacturerDO;
@@ -42,7 +41,7 @@ public class DefaultCarService implements CarService {
      */
     @Override
     public List<CarDO> findAll() {
-        return ImmutableList.copyOf(carRepository.findByDeletedFalse());
+        return carRepository.findByDeletedFalse();
     }
 
     /**
@@ -53,7 +52,7 @@ public class DefaultCarService implements CarService {
      */
     @Override
     public List<CarDO> find(EngineType engineType) {
-        return ImmutableList.copyOf(carRepository.findByEngineType(engineType));
+        return carRepository.findByEngineType(engineType);
     }
 
     /**
@@ -119,7 +118,6 @@ public class DefaultCarService implements CarService {
     public void updateRating(Long carId, Float rating)
         throws EntityNotFoundException, ConstraintsViolationException {
         try {
-            // because couldn't make javax.validation.constraints validate on setters, and failure occur at transaction level
             Preconditions.checkArgument(rating >= 0.0 && rating <= 5.0,
                 " rating should be between [0.0, 5.0]");
             CarDO carDO = findCarChecked(carId);
