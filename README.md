@@ -10,6 +10,9 @@ There are APIs for creating/deleting drivers and cars, assigning cars to online 
 For detailed APIs documentation, please refer to SwaggerUI(http://localhost:8080/swagger-ui.html) after starting the server.
 It serves both as API document as well as interactive playground for trying out APIs.
 
+Also, you can import [etc/taxi-fleet-management.postman_collection.json](https://github.com/abhi195/taxi-fleet-management-apis/blob/master/etc/taxi-fleet-management.postman_collection.json) 
+which shows some request scenarios.
+
 ## Starting the server
 
 - You should be able to start the server by executing com.triptaxi.TaxiFleetManagementApplication, 
